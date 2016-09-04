@@ -11,6 +11,7 @@ test-output/
 *.swap
 *.swp
 *.DS_Store
+.idea
 *.iml
 *.versionsBackup
 doc/
@@ -39,3 +40,4 @@ antx-external.properties
 
 
 
+.idea
