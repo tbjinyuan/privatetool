@@ -1,9 +1,11 @@
 package com.zk.toolbox.dao.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by zhengke on 16/9/4.
  */
-public class User {
+public class User implements Serializable {
 
 
     private int uid;
