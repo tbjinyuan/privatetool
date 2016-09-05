@@ -12,6 +12,8 @@ public class User {
 
     private String userName;
 
+    private int     age;
+
     public int getUid() {
         return uid;
     }
@@ -35,4 +37,19 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override public String toString() {
+        return "User{" + "uid=" + uid + ", data='" + data + '\'' + ", userName='" + userName + '\'' + '}';
+    }
+
+
+
 }
