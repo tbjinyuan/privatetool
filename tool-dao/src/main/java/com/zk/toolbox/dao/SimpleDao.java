@@ -1,11 +1,17 @@
 package com.zk.toolbox.dao;
 
+import com.zk.toolbox.dao.datasource.DruidUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
 /**
  * Created by zhengke on 16/9/3.
  */
 public class SimpleDao {
+
+    private static final Logger log = LoggerFactory.getLogger(SimpleDao.class);
 
     public static String getDaoDescription(){
 
@@ -18,27 +24,28 @@ public class SimpleDao {
 
 
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "kevin");
+            conn = DruidUtils.getConnection();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from json_test");
+            stmt = conn.createStatement();
+
+            rs = stmt.executeQuery("select sum(json_extract(data,'$.amount')) as totolAmount,user_name from json_test  where user_name is not  null  group by user_name");
             while (rs.next()) {
-                int uid = rs.getInt(1);
-                String data = rs.getString(2);
-                String userName = rs.getString(3);
+                int totolAmount = rs.getInt(1);
+                String userName = rs.getString(2);
 
-                System.out.println("uid:" + uid + ", data:" + data + ", userName " + userName);
+                //System.out.println("totolAmount:" + totolAmount + ", userName " + userName);
+                log.debug("[totolAmount]" + totolAmount + ", [userName] " + userName);
             }
-
             ResultSetMetaData rsmd = rs.getMetaData();
             int numberOfColumns = rsmd.getColumnCount();
 
-            System.out.println("numberOfColumns :" + numberOfColumns);
-            System.out.println("catalogName :" + rsmd.getCatalogName(2));
-            System.out.println("ColumnClassName :" + rsmd.getColumnClassName(2));
-            System.out.println("ColumnType :" + rsmd.getColumnType(2));
-            System.out.println("ColumnType :" + rsmd.getColumnTypeName(2));
-            System.out.println("tabName :" + rsmd.getTableName(2));
+//            System.out.println("numberOfColumns :" + numberOfColumns);
+//            System.out.println("catalogName :" + rsmd.getCatalogName(2));
+//            System.out.println("ColumnClassName :" + rsmd.getColumnClassName(2));
+//            System.out.println("ColumnType :" + rsmd.getColumnType(2));
+//            System.out.println("ColumnType :" + rsmd.getColumnTypeName(2));
+//            System.out.println("tabName :" + rsmd.getTableName(2));
 
         } catch (SQLException e) {
             e.printStackTrace();

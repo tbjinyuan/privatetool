@@ -88,24 +88,23 @@ public class DruidUtils {
 
             statement = connection.createStatement();
 
-            rs = statement.executeQuery("select * from json_test");
+            rs = statement.executeQuery("select sum(json_extract(data,'$.amount')) as totolAmount,user_name from json_test  where user_name is not  null  group by user_name");
             while (rs.next()) {
-                int uid = rs.getInt(1);
-                String data = rs.getString(2);
-                String userName = rs.getString(3);
+                int totolAmount = rs.getInt(1);
+                String userName = rs.getString(2);
 
-                System.out.println("uid:" + uid + ", data:" + data + ", userName " + userName);
+                System.out.println("totolAmount:" + totolAmount + ", userName " + userName);
             }
 
             ResultSetMetaData rsmd = rs.getMetaData();
             int numberOfColumns = rsmd.getColumnCount();
 
-            System.out.println("numberOfColumns :" + numberOfColumns);
-            System.out.println("catalogName :" + rsmd.getCatalogName(2));
-            System.out.println("ColumnClassName :" + rsmd.getColumnClassName(2));
-            System.out.println("ColumnType :" + rsmd.getColumnType(2));
-            System.out.println("ColumnType :" + rsmd.getColumnTypeName(2));
-            System.out.println("tabName :" + rsmd.getTableName(2));
+//            System.out.println("numberOfColumns :" + numberOfColumns);
+//            System.out.println("catalogName :" + rsmd.getCatalogName(2));
+//            System.out.println("ColumnClassName :" + rsmd.getColumnClassName(2));
+//            System.out.println("ColumnType :" + rsmd.getColumnType(2));
+//            System.out.println("ColumnType :" + rsmd.getColumnTypeName(2));
+//            System.out.println("tabName :" + rsmd.getTableName(2));
 
 
         }catch (Exception e){

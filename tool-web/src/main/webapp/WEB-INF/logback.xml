@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoding>UTF-8</encoding>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern><![CDATA[
+            	%-4relative [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{35} - %msg%n
+            ]]></pattern>
+		</layout>
+	</appender>
+
+
+	<appender name="PROJECT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>/Users/zhengke/dev/log/privatetool.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${loggingRoot}/all.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoding>UTF-8</encoding>
+		<append>true</append>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern><![CDATA[
+            	%-4relative [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{35} - %msg%n
+            ]]></pattern>
+		</layout>
+	</appender>
+
+
+
+
+	<logger name="java.sql.Connection" level="debug" >
+		<appender-ref ref="PROJECT" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+    <logger name="java.sql" level="debug" >
+		<appender-ref ref="PROJECT" />
+		<appender-ref ref="STDOUT" />
+    </logger>
+
+	
+	<root>
+		<level value="debug" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="PROJECT" />
+	</root>
+	
+</configuration>
